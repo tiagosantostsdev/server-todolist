@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import { dbConnection } from "./database/db";
+import { userRoute } from "./routers/userRoute";
 
 dotenv.config({path: "./src/.env"});
 
@@ -15,6 +16,9 @@ dbConnection();
 //app uses
 app.use(express.json());
 app.use(cors());
+
+//app uses routes
+app.use("/user", userRoute)
 
 //sever port
 const PORT: number = Number(process.env.PORT || 2002);
