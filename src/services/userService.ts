@@ -4,6 +4,8 @@ export const createUser = (values: Record<string, any>) => User.create(values);
 
 export const findUser = () => User.find();
 
+export const findUserById = (id:string) => User.findById(id)
+
 export const updateUser = (values: Record<string, any>) =>
   User.findOneAndUpdate(
     { _id: values.id },

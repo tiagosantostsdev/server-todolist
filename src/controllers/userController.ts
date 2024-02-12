@@ -39,7 +39,7 @@ export const Find = async (req: express.Request, res: express.Response) => {
     return res.status(400).send({ message: error.message });
   }
 };
-
+  
 export const Update = async (req: express.Request, res: express.Response) => {
   try {
     const { id } = req.params as { id: string };
