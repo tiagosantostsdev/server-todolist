@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { dbConnection } from "./database/db";
 import { userRoute } from "./routers/userRoute";
 import { loginRoute } from "./routers/loginRoute";
+import { taskRoutes } from "./routers/taskRoute";
 
 dotenv.config({path: "./src/.env"});
 
@@ -21,6 +22,7 @@ app.use(cors());
 //app uses routes
 app.use("/user", userRoute)
 app.use("/login", loginRoute)
+app.use("/tasks", taskRoutes)
 
 //sever port
 const PORT: number = Number(process.env.PORT || 2002);
