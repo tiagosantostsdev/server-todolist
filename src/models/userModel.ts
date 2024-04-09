@@ -8,8 +8,4 @@ const userSchema = new mongoose.Schema({
   isVerified: { type: Boolean, default: false },
 });
 
-userSchema.pre("save", function () {
-  this.password = bcrypt.hashSync(this.password, 10);
-});
-
 export const User = mongoose.model("users", userSchema);

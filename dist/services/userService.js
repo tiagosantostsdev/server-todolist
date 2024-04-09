@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteUser = exports.updateUser = exports.findOneUser = exports.findUserById = exports.findUser = exports.createUser = void 0;
+const userModel_1 = require("../models/userModel");
+const createUser = (values) => userModel_1.User.create(values);
+exports.createUser = createUser;
+const findUser = () => userModel_1.User.find();
+exports.findUser = findUser;
+const findUserById = (id) => userModel_1.User.findById(id);
+exports.findUserById = findUserById;
+const findOneUser = (id) => userModel_1.User.findOne({ _id: id });
+exports.findOneUser = findOneUser;
+const updateUser = (values) => userModel_1.User.findOneAndUpdate({ _id: values.id }, { username: values.username });
+exports.updateUser = updateUser;
+const deleteUser = (id) => userModel_1.User.findOneAndDelete({ _id: id });
+exports.deleteUser = deleteUser;

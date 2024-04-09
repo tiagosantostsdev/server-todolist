@@ -1,9 +1,21 @@
-import express from "express"
-import { authUser } from "../middlewares/authMiddleware"
-import { Create, findTasks } from "../controllers/taskController"
+import express from "express";
+import { authUser } from "../middlewares/authMiddleware";
+import {
+  Create,
+  DeleteTasks,
+  FindTasks,
+  SearchTasks,
+  UpdadeTasks,
+} from "../controllers/taskController";
 
-export const taskRoutes = express.Router()
+export const taskRoutes = express.Router();
 
-taskRoutes.post("/newtask", authUser, Create)
+taskRoutes.post("/create", authUser, Create);
 
-taskRoutes.get("/", authUser, findTasks) 
+taskRoutes.get("/", authUser, FindTasks);
+
+taskRoutes.get("/search", authUser, SearchTasks);
+
+taskRoutes.patch("/update/:id", authUser, UpdadeTasks);
+
+taskRoutes.delete("/delete/:id", authUser, DeleteTasks);
