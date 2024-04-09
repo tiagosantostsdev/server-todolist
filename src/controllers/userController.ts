@@ -11,7 +11,8 @@ import {
   updateUser,
 } from "../services/userService";
 import { generateToken } from "../services/loginService";
-import { sendEmail } from "./config/emailVerify";
+import { sendEmail } from "../config/emailVerify";
+
 
 export const Create = async (req: express.Request, res: express.Response) => {
   try {

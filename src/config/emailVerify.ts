@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 
 export const sendEmail = (email: string, token: string) => {
-  const baseURL = "http://localhost:2002";
+  const baseURL: string = String(process.env.BASE_URL);
 
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",

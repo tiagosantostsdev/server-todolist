@@ -17,7 +17,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const userService_1 = require("../services/userService");
 const loginService_1 = require("../services/loginService");
-const emailVerify_1 = require("./config/emailVerify");
+const emailVerify_1 = require("../config/emailVerify");
 const Create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, email, password } = req.body;
