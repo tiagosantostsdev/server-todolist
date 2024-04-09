@@ -48,7 +48,7 @@ const FindTasks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const id = req.userId;
         const tasks = yield (0, taskServices_1.findTaskByUser)(id);
         if (tasks.length === 0) {
-            return res.status(404).send({ message: "Tasks where this id not found" });
+            return res.status(404).send({ message: "Tasks where this user id not found" });
         }
         res.status(200).send(tasks);
     }
