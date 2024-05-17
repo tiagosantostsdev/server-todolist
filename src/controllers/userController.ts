@@ -16,17 +16,19 @@ import { sendEmail } from "../config/emailVerify";
 
 export const Create = async (req: express.Request, res: express.Response) => {
   try {
-    const { username, email, password } = req.body as {
+    const { username, email,date, gender, password } = req.body as {
       username: string;
       email: string;
+      date: string;
+      gender: string;
       password: string;
     };
-    if (!username || !email || !password) {
+    if (!username || !email || !date || !gender || !password) {
       return res.status(400).send({ message: "Please submit all field" });
     }
 
     const hash = bcrypt.hashSync(password, 10);
-    const user = await createUser({ username, email, password: hash });
+    const user = await createUser({ username, email, date, gender, password: hash });
     if (!user) {
       return res.status(400).send({ message: "Error creating new user" });
     }
