@@ -3,4 +3,4 @@ import { userLogin } from "../controllers/loginController"
 
 export const loginRoute = express.Router()
 
-loginRoute.post("/", userLogin)
+loginRoute.post("/signin", userLogin)

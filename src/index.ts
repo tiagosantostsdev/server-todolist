@@ -21,7 +21,7 @@ app.use(cors());
 
 //app uses routes
 app.use("/user", userRoute)
-app.use("/login", loginRoute)
+app.use("/auth", loginRoute)
 app.use("/tasks", taskRoutes)
 
 //sever port
