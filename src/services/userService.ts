@@ -4,7 +4,8 @@ export const createUser = (values: Record<string, any>) => User.create(values);
 
 export const findUser = () => User.find();
 
-export const findUserById = (id: string) => User.findById(id);
+export const findUserByEmail = (email: string) =>
+  User.findOne({ email: email });
 
 export const findOneUser = (id: string) => User.findOne({ _id: id });
 

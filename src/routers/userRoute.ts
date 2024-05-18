@@ -1,14 +1,25 @@
 import express from "express";
-import { Create, Delete, Find, Update, VerifyEmail } from "../controllers/userController";
+import {
+  Create,
+  Delete,
+  Find,
+  ForgoutPassword,
+  RedefinePassword,
+  Update,
+  VerifyEmail,
+} from "../controllers/userController";
 
 export const userRoute = express.Router();
 
-userRoute.post("/newuser", Create)
+userRoute.post("/newuser", Create);
 
-userRoute.get("/verify-email/:token", VerifyEmail)
+userRoute.get("/verify-email/:token", VerifyEmail);
 
-userRoute.get("/", Find)
+userRoute.get("/", Find);
 
-userRoute.patch("/update/:id", Update)
+userRoute.post("/forgout-password", ForgoutPassword);
+userRoute.post("/redefine-password", RedefinePassword);
 
-userRoute.delete("/delete/:id", Delete)
+userRoute.patch("/update/:id", Update);
+
+userRoute.delete("/delete/:id", Delete);

@@ -17,6 +17,7 @@ export const Create = async (req: any, res: express.Response) => {
     const tasks = await createTask({
       task: task,
       created_date: date.toLocaleString("AO", {
+        timeZone: "Africa/Luanda",
         weekday: "long",
         day: "numeric",
         month: "long",
@@ -43,7 +44,9 @@ export const FindTasks = async (req: any, res: express.Response) => {
     const id = req.userId;
     const tasks = await findTaskByUser(id);
     if (tasks.length === 0) {
-      return res.status(404).send({ message: "Tasks where this user id not found" });
+      return res
+        .status(404)
+        .send({ message: "Tasks where this user id not found" });
     }
     res.status(200).send(tasks);
   } catch (error) {

@@ -7,16 +7,16 @@ import {
   deleteUser,
   findOneUser,
   findUser,
-  findUserById,
+  findUserByEmail,
   updateUser,
 } from "../services/userService";
 import { generateToken } from "../services/loginService";
 import { sendEmail } from "../config/emailVerify";
-
+import { RedefinePasswordEmail } from "../config/redefinePassword";
 
 export const Create = async (req: express.Request, res: express.Response) => {
   try {
-    const { username, email,date, gender, password } = req.body as {
+    const { username, email, date, gender, password } = req.body as {
       username: string;
       email: string;
       date: string;
@@ -28,7 +28,26 @@ export const Create = async (req: express.Request, res: express.Response) => {
     }
 
     const hash = bcrypt.hashSync(password, 10);
-    const user = await createUser({ username, email, date, gender, password: hash });
+
+    const createdDate = new Date();
+
+    const user = await createUser({
+      username,
+      email,
+      date,
+      gender,
+      password: hash,
+      createdDate: createdDate.toLocaleString("AO", {
+        timeZone: "Africa/Luanda",
+        weekday: "long",
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+      }),
+    });
     if (!user) {
       return res.status(400).send({ message: "Error creating new user" });
     }
@@ -55,7 +74,7 @@ export const VerifyEmail = async (
       String(process.env.SECRET_JWT)
     );
     const { id } = decoded as { id: string };
-    const user:any = await findOneUser(id);
+    const user: any = await findOneUser(id);
 
     user.isVerified = true;
     await user.save();
@@ -108,6 +127,69 @@ export const Delete = async (req: express.Request, res: express.Response) => {
       return res.status(400).send({ message: "User can't be deleted" });
     }
     res.status(200).send({ message: "User deleted sucessfully" });
+  } catch (error: any) {
+    console.error({ message: error.message });
+    return res.status(500).send({ message: error.message });
+  }
+};
+
+export const ForgoutPassword = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { email } = req.body as { email: string };
+
+    if (!email) {
+      return res.status(400).send({ message: "Please set a valid email" });
+    }
+
+    const user = await findUserByEmail(email);
+    if (!user) {
+      return res.status(400).send({ message: "User by email not found" });
+    }
+
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    user.codeVerify = code;
+    await user.save();
+    RedefinePasswordEmail(user.email, code);
+
+    res
+      .status(200)
+      .send({ message: "Code verify was sent at your user email" });
+  } catch (error: any) {
+    console.error({ message: error.message });
+    return res.status(500).send({ message: error.message });
+  }
+};
+
+export const RedefinePassword = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { email, code, password } = req.body as {
+      email: string;
+      code: string;
+      password: string;
+    };
+
+    if (!email || !code || !password) {
+      return res.status(400).send({ message: "Please submit all field" });
+    }
+
+    const user = await findUserByEmail(email);
+    if (!user || user?.codeVerify !== code) {
+      return res.status(400).send({ message: "Invalid code" });
+    }
+
+    const hash = bcrypt.hashSync(password, 10);
+
+    user.password = hash;
+    user.codeVerify = undefined;
+    await user.save();
+
+    res.status(200).send({ message: "Password has been updated" });
   } catch (error: any) {
     console.error({ message: error.message });
     return res.status(500).send({ message: error.message });
