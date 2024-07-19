@@ -1,6 +1,6 @@
 import express from "express";
 import jwt from "jsonwebtoken";
-import { findUserById } from "../services/userService";
+import { findOneUser } from "../services/userService";
 
 export const authUser = async (
   req: any,
@@ -27,7 +27,7 @@ export const authUser = async (
       if (error) {
         return res.status(400).send({ message: error.message });
       }
-      const user = await findUserById(decoded.id);
+      const user = await findOneUser(decoded.id);
       if (!user || !user.id) {
         return res.status(400).send({ message: "Invalid token" });
       }

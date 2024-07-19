@@ -43,7 +43,7 @@ export const FindTasks = async (req: any, res: express.Response) => {
   try {
     const id = req.userId;
     const tasks = await findTaskByUser(id);
-    if (tasks.length === 0) {
+    if (!tasks) {
       return res
         .status(404)
         .send({ message: "Tasks where this user id not found" });

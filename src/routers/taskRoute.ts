@@ -19,3 +19,4 @@ taskRoutes.get("/search", authUser, SearchTasks);
 taskRoutes.patch("/update/:id", authUser, UpdadeTasks);
 
 taskRoutes.delete("/delete/:id", authUser, DeleteTasks);
+ 

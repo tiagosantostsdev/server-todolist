@@ -101,6 +101,22 @@ export const Find = async (req: express.Request, res: express.Response) => {
   }
 };
 
+export const FindUserById = async (req: any, res: express.Response) => {
+  try {
+    const { userId } = req;
+    const user = await findOneUser(userId);
+    if (!user) {
+      return res.status(404).send({ message: "No users found" });
+    }
+    res.status(200).send(user);
+  } catch (error: any) {
+    return (
+      res.status(500).send({ message: error.message }) &&
+      console.error({ message: error.message })
+    );
+  }
+};
+
 export const Update = async (req: express.Request, res: express.Response) => {
   try {
     const { id } = req.params as { id: string };
@@ -180,7 +196,9 @@ export const RedefinePassword = async (
 
     const user = await findUserByEmail(email);
     if (!user || user?.codeVerify !== code) {
-      return res.status(400).send({ message: "Invalid code" });
+      return res
+        .status(400)
+        .send({ message: "Code invalid or email not found!" });
     }
 
     const hash = bcrypt.hashSync(password, 10);

@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true, select: false },
   isVerified: { type: Boolean, default: false },
   codeVerify: { type: String, default: undefined },
-  createdDate: { type: String, required: true },
+  createdDate: { type: String},
 });
 
 export const User = mongoose.model("users", userSchema);
