@@ -17,7 +17,9 @@ dbConnection();
 
 //app uses
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: "https://server-todolist-bay.vercel.app"
+}));
 
 //app uses routes
 app.use("/user", userRoute);
