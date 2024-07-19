@@ -18,7 +18,7 @@ dbConnection();
 //app uses
 app.use(express.json());
 app.use(cors({
-    origin: "https://server-todolist-bay.vercel.app"
+    origin: "https://todolist-tiagosantos.netlify.app"
 }));
 
 //app uses routes
