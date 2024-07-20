@@ -2,20 +2,23 @@ import nodemailer from "nodemailer";
 
 export const sendEmail = (email: string, token: string) => {
   const baseURL: string = String(process.env.BASE_URL);
+  const user: string = String(process.env.USER_EMAIL);
+  const pass: string = String(process.env.USER_PASS);
 
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     service: "gmail",
     port: 587,
+    secure: true,
     auth: {
-      user: "devsangola5@gmail.com",
-      pass: "hryy upwd vpew ixcw",
+      user: user,
+      pass: pass,
     },
   });
 
   transporter
     .sendMail({
-      from: "devsangola5@gmail.com",
+      from: user,
       to: email,
       subject: "Email verification",
       html: `<html>
