@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import dotenv from "dotenv";
 
 import { dbConnection } from "./database/db";
@@ -16,6 +17,7 @@ dbConnection();
 
 //app uses
 app.use(express.json());
+app.use(cors());
 
 //app uses routes
 app.use("/user", userRoute);
