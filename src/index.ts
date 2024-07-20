@@ -20,7 +20,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "todolist-tiagosantos.netlify.app",
+    origin: "https://todolist-tiagosantos.netlify.app/",
   })
 );
 
