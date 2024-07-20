@@ -1,6 +1,6 @@
 import { User } from "../models/userModel";
 
-export const createUser = async (values: Record<string, any>) => await User.create(values);
+export const createUser = (values: Record<string, any>) => User.create(values);
 
 export const findUser = () => User.find();
 
