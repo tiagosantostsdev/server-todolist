@@ -20,7 +20,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://todolist-tiagosantos.netlify.app/*",
+    origin: "*",
     methods: "GET, POST, PUT, PATCH, POST, DELETE, OPTIONS",
     allowedHeaders: "Content-Type",
     credentials: true
