@@ -8,7 +8,7 @@ import { loginRoute } from "./routers/loginRoute";
 import { taskRoutes } from "./routers/taskRoute";
 
 //enviroment variables
-dotenv.config({ path: ".env" });
+dotenv.config({ path: "./src/.env" });
 
 //Instace express
 const app = express();

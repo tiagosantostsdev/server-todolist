@@ -1,9 +1,8 @@
 import nodemailer from "nodemailer";
 
 export const RedefinePasswordEmail = (email: string, code: string) => {
-
-  const user = "devsangola5@gmail.com"
-  const pass = "hryy upwd vpew ixcw"
+  const user: string = String(process.env.USER_EMAIL);
+  const pass: string = String(process.env.USER_PASS);
 
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
