@@ -17,9 +17,7 @@ dbConnection();
 
 //app uses
 app.use(express.json());
-app.use(cors({
-    origin: "https://todolist-tiagosantos.netlify.app/"
-}));
+app.use(cors());
 
 //app uses routes
 app.use("/user", userRoute);
