@@ -58,9 +58,11 @@ export const Create = async (req: express.Request, res: express.Response) => {
     res.status(201).send({
       message: "User has been created sucessfully, please verify your email",
     });
-  } catch (error: any) {
-    console.error({ message: error.message });
-    return res.status(400).send({ message: error.message });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error({ message: error.message });
+      return res.status(500).send({ message: error.message });
+    }
   }
 };
 
@@ -95,9 +97,11 @@ export const Find = async (req: express.Request, res: express.Response) => {
       return res.status(404).send({ message: "No users found" });
     }
     res.status(200).send({ Users: user });
-  } catch (error: any) {
-    console.error({ message: error.message });
-    return res.status(500).send({ message: error.message });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error({ message: error.message });
+      return res.status(500).send({ message: error.message });
+    }
   }
 };
 
@@ -109,11 +113,11 @@ export const FindUserById = async (req: any, res: express.Response) => {
       return res.status(404).send({ message: "No users found" });
     }
     res.status(200).send(user);
-  } catch (error: any) {
-    return (
-      res.status(500).send({ message: error.message }) &&
-      console.error({ message: error.message })
-    );
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error({ message: error.message });
+      return res.status(500).send({ message: error.message });
+    }
   }
 };
 
@@ -129,9 +133,11 @@ export const Update = async (req: express.Request, res: express.Response) => {
       return res.status(400).send({ message: "User can't be updated" });
     }
     res.status(200).send({ message: "Username has been updated" });
-  } catch (error: any) {
-    console.error({ message: error.message });
-    return res.status(500).send({ message: error.message });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error({ message: error.message });
+      return res.status(500).send({ message: error.message });
+    }
   }
 };
 
@@ -143,9 +149,11 @@ export const Delete = async (req: express.Request, res: express.Response) => {
       return res.status(400).send({ message: "User can't be deleted" });
     }
     res.status(200).send({ message: "User deleted sucessfully" });
-  } catch (error: any) {
-    console.error({ message: error.message });
-    return res.status(500).send({ message: error.message });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error({ message: error.message });
+      return res.status(500).send({ message: error.message });
+    }
   }
 };
 
@@ -173,9 +181,11 @@ export const ForgoutPassword = async (
     res
       .status(200)
       .send({ message: "Code verify was sent at your user email" });
-  } catch (error: any) {
-    console.error({ message: error.message });
-    return res.status(500).send({ message: error.message });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error({ message: error.message });
+      return res.status(500).send({ message: error.message });
+    }
   }
 };
 
@@ -208,8 +218,10 @@ export const RedefinePassword = async (
     await user.save();
 
     res.status(200).send({ message: "Password has been updated" });
-  } catch (error: any) {
-    console.error({ message: error.message });
-    return res.status(500).send({ message: error.message });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error({ message: error.message });
+      return res.status(500).send({ message: error.message });
+    }
   }
 };

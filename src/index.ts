@@ -1,13 +1,14 @@
 import express from "express";
-import cors from "cors";
 import dotenv from "dotenv";
+import cors from "cors";
 
 import { dbConnection } from "./database/db";
 import { userRoute } from "./routers/userRoute";
 import { loginRoute } from "./routers/loginRoute";
 import { taskRoutes } from "./routers/taskRoute";
 
-dotenv.config({ path: "./src/.env" });
+//enviroment variables
+dotenv.config({ path: ".env" });
 
 //Instace express
 const app = express();
@@ -17,9 +18,7 @@ dbConnection();
 
 //app uses
 app.use(express.json());
-app.use(cors({
-    origin: "*"
-}));
+app.use(cors());
 
 //app uses routes
 app.use("/user", userRoute);

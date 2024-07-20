@@ -22,14 +22,16 @@ export const userLogin = async (
       return res.status(400).send({ message: "User or password not found" });
     }
 
-    if(user.isVerified === false){
-      return res.status(400).send({message: "Please verify your user email"})
+    if (user.isVerified === false) {
+      return res.status(400).send({ message: "Please verify your user email" });
     }
 
     const token = generateToken(user.id);
     res.status(200).send(token);
-  } catch (error: any) {
-    console.error({ message: error.message });
-    return res.status(400).send({ message: error.message });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error({ message: error.message });
+      return res.status(500).send({ message: error.message });
+    }
   }
 };

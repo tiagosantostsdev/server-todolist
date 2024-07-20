@@ -34,7 +34,8 @@ export const Create = async (req: any, res: express.Response) => {
     res.status(201).send({ message: "Task has been created" });
   } catch (error) {
     if (error instanceof Error) {
-      return res.status(400).send({ message: error.message });
+      console.error({ message: error.message });
+      return res.status(500).send({ message: error.message });
     }
   }
 };
@@ -52,7 +53,7 @@ export const FindTasks = async (req: any, res: express.Response) => {
   } catch (error) {
     if (error instanceof Error) {
       console.error({ message: error.message });
-      return res.status(400).send({ message: error.message });
+      return res.status(500).send({ message: error.message });
     }
   }
 };
