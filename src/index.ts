@@ -16,13 +16,19 @@ const app = express();
 dbConnection();
 
 //app uses
+app.use(express.json());
 app.use(
   cors({
     origin: "*",
+    credentials: true,
     methods: "GET, POST, PUT, PATCH, POST, DELETE",
+    allowedHeaders: [
+      "Access-Control-Allow-Headers",
+      "Origin, Accept, X-Requested-With, Content-Type",
+      "Access-Control-Request-Method, Access-Control-Request-Headers, Authorization",
+    ],
   })
 );
-app.use(express.json());
 
 //app uses routes
 app.use("/user", userRoute);
