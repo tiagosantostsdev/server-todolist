@@ -23,7 +23,7 @@ app.use(
     origin: "*",
     methods: "GET, POST, PUT, PATCH, POST, DELETE, OPTIONS",
     allowedHeaders: "Content-Type",
-    credentials: true
+    credentials: false
   })
 );
 
